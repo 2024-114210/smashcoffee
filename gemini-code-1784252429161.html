@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smash Coffee | JBTC Binangonan</title>
+    <!-- Fonts: Playfair Display (Serif) & Inter (Sans-serif) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        /* --- CSS Variables & Color Palette --- */
+        :root {
+            --espresso: #3E2723;
+            --caramel: #C68E58;
+            --beige: #E6D5C3;
+            --cream: #FDFBF7;
+            --charcoal: #2C2C2C;
+            --white: #FFFFFF;
+            
+            --font-serif: 'Playfair Display', serif;
+            --font-sans: 'Inter', sans-serif;
+            
+            --radius-md: 12px;
+            --radius-lg: 24px;
+            --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+        }
+
+        /* --- Global Reset & Basics --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            color: var(--charcoal);
+            background-color: var(--cream);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, .serif {
+            font-family: var(--font-serif);
+            color: var(--espresso);
+            line-height: 1.2;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        section {
+            padding: 5rem 0;
+        }
+
+        /* --- Buttons --- */
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 500;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+            font-family: var(--font-sans);
+        }
+
+        .btn-primary {
+            background-color: var(--caramel);
+            color: var(--white);
+            box-shadow: 0 4px 15px rgba(198, 142, 88, 0.4);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--espresso);
+            transform: translateY(-3px);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--white);
+            border: 1px solid var(--white);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--white);
+            color: var(--espresso);
+            transform: translateY(-3px);
+        }
+
+        /* --- Navbar --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(253, 251, 247, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-serif);
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--espresso);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--caramel);
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(44, 44, 44, 0.6), rgba(62, 39, 35, 0.7)), url('https://images.unsplash.com/photo-1497935586351-b67a49e012bf?auto=format&fit=crop&w=1920&q=80') center/cover;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: var(--white);
+            padding-top: 60px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .hero h1 {
+            color: var(--white);
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            font-weight: 300;
+        }
+
+        .hero-btns {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
+        /* --- About Section --- */
+        .about .container {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+            color: #555;
+        }
+
+        .about-img {
+            flex: 1;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .about-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .about-img:hover img {
+            transform: scale(1.05);
+        }
+
+        /* --- Menu Section --- */
+        .menu {
+            background-color: var(--beige);
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .menu-item {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: var(--radius-md);
+            text-align: center;
+            box-shadow: var(--shadow-soft);
+            transition: var(--transition);
+        }
+
+        .menu-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .menu-item h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .menu-item p {
+            color: var(--caramel);
+            font-weight: 600;
+        }
+
+        /* --- Weekend Special --- */
+        .promo-banner {
+            background: linear-gradient(rgba(62, 39, 35, 0.8), rgba(62, 39, 35, 0.9)), url('https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?auto=format&fit=crop&w=1920&q=80') center/cover fixed;
+            color: var(--white);
+            text-align: center;
+            padding: 6rem 1rem;
+        }
+
+        .promo-banner h2 {
+            color: var(--cream);
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .promo-banner p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        /* --- Why Choose Us --- */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: var(--radius-md);
+            text-align: center;
+            box-shadow: var(--shadow-soft);
+            transition: var(--transition);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--caramel);
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* --- Gallery --- */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .gallery-item {
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            height: 250px;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        /* --- Customer Reviews --- */
+        .reviews {
+            background-color: var(--beige);
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .review-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .stars {
+            color: var(--caramel);
+            margin-bottom: 1rem;
+        }
+
+        .review-text {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            color: #555;
+        }
+
+        .customer {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .customer img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .customer h5 {
+            font-family: var(--font-sans);
+            font-size: 1rem;
+            color: var(--espresso);
+        }
+
+        /* --- Location & Contact --- */
+        .contact .container {
+            display: flex;
+            gap: 4rem;
+        }
+
+        .contact-info {
+            flex: 1;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-item i {
+            color: var(--caramel);
+            font-size: 1.2rem;
+            margin-top: 0.2rem;
+        }
+
+        .map-container {
+            flex: 1;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            min-height: 350px;
+            background: #ccc;
+        }
+        
+        /* --- Floating Actions --- */
+        .float {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 1000;
+        }
+
+        .float a {
+            background: var(--caramel);
+            color: var(--white);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: var(--transition);
+            font-size: 1.2rem;
+        }
+        
+        .float a:hover {
+            background: var(--espresso);
+            transform: translateY(-3px);
+        }
+
+        /* --- Footer --- */
+        footer {
+            background-color: var(--charcoal);
+            color: var(--cream);
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-logo {
+            font-family: var(--font-serif);
+            font-size: 1.8rem;
+            color: var(--cream);
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .footer-col h4 {
+            color: var(--caramel);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--caramel);
+        }
+
+        .newsletter form {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .newsletter input {
+            padding: 0.8rem;
+            border: none;
+            border-radius: var(--radius-md);
+            flex: 1;
+            font-family: var(--font-sans);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-icons a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .social-icons a:hover {
+            background: var(--caramel);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+
+        /* --- Animations & Media Queries --- */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 992px) {
+            .about .container, .contact .container {
+                flex-direction: column;
+            }
+            .hero h1 {
+                font-size: 3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            .hero-btns {
+                flex-direction: column;
+            }
+            section {
+                padding: 3rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="container nav-container">
+            <a href="#" class="logo">Smash Coffee.</a>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#menu">Menu</a></li>
+                <li><a href="#features">Highlights</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Fuel Your Game.<br>Sip the Difference.</h1>
+            <p>Smash Coffee inside JBTC Binangonan Badminton & Pickleball Courts. Premium coffee and refreshments for athletes, families, and coffee lovers.</p>
+            <div class="hero-btns">
+                <a href="#menu" class="btn btn-primary">Order Now</a>
+                <a href="#menu" class="btn btn-secondary">View Our Menu</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="about-text">
+                <h2>About Smash Coffee</h2>
+                <p>Located inside JBTC Binangonan, Smash Coffee serves premium coffee and refreshments for athletes, families and coffee lovers.</p>
+                <p>Designed with a relaxed atmosphere, it’s the perfect place to fuel up before a game, cool down after a match, or simply enjoy a quiet moment with expertly crafted coffee.</p>
+            </div>
+            <div class="about-img">
+                <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=800&q=80" alt="Cozy cafe interior">
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section class="menu" id="menu">
+        <div class="container">
+            <h2 class="section-title">Our Menu</h2>
+            <div class="menu-grid">
+                <!-- Coffee Items -->
+                <div class="menu-item">
+                    <h3>Signature Latte</h3>
+                    <p>$5.50</p>
+                </div>
+                <div class="menu-item">
+                    <h3>Cappuccino</h3>
+                    <p>$4.50</p>
+                </div>
+                <div class="menu-item">
+                    <h3>Flat White</h3>
+                    <p>$4.50</p>
+                </div>
+                <div class="menu-item">
+                    <h3>Caramel Macchiato</h3>
+                    <p>$5.00</p>
+                </div>
+                <div class="menu-item">
+                    <h3>Spanish Latte</h3>
+                    <p>$5.50</p>
+                </div>
+                <div class="menu-item">
+                    <h3>Americano</h3>
+                    <p>$3.50</p>
+                </div>
+                <div class="menu-item">
+                    <h3>Matcha Latte</h3>
+                    <p>$6.00</p>
+                </div>
+                <div class="menu-item">
+                    <h3>Mocha</h3>
+                    <p>$5.00</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Weekend Special Promotional Banner -->
+    <section class="promo-banner">
+        <div class="container">
+            <h2>☕ Buy 1 Get 1 on Selected Drinks</h2>
+            <p>Treat yourself and a friend this weekend. Stop by Smash Coffee to enjoy our exclusive weekend special on all espresso-based beverages.</p>
+            <a href="#contact" class="btn btn-primary">Visit Us Today</a>
+        </div>
+    </section>
+
+    <!-- Highlights / Features -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title">Highlights</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fa-solid fa-mug-hot feature-icon"></i>
+                    <h4>Premium Coffee</h4>
+                    <p>Ethically sourced and roasted to perfection.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fa-solid fa-wifi feature-icon"></i>
+                    <h4>Free Wi-Fi</h4>
+                    <p>High-speed internet while you relax.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fa-solid fa-snowflake feature-icon"></i>
+                    <h4>Air-conditioned</h4>
+                    <p>Cool down comfortably after your match.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fa-solid fa-mobile-screen-button feature-icon"></i>
+                    <h4>GCash Accepted</h4>
+                    <p>Fast, easy, and cashless transactions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery" id="gallery">
+        <div class="container">
+            <h2 class="section-title">Our Atmosphere</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1495474472206-bf73fdea3146?auto=format&fit=crop&w=600&q=80" alt="Coffee pouring"></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=600&q=80" alt="Latte art"></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1608198093002-ad4e005484ec?auto=format&fit=crop&w=600&q=80" alt="Croissants"></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1525610553991-53b1c0687e1a?auto=format&fit=crop&w=600&q=80" alt="Barista working"></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1627914856087-5c5890b0e509?auto=format&fit=crop&w=600&q=80" alt="Cinnamon rolls"></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1559525839-b184a4d698c7?auto=format&fit=crop&w=600&q=80" alt="Coffee beans"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Customer Reviews -->
+    <section class="reviews" id="reviews">
+        <div class="container">
+            <h2 class="section-title">What Locals Say</h2>
+            <div class="reviews-grid">
+                <div class="review-card">
+                    <div class="stars">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="review-text">"Best Spanish Latte I've had in the city. The interiors are incredibly cozy and the natural light makes it a perfect spot to read a book."</p>
+                    <div class="customer">
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=100&q=80" alt="Customer Sarah">
+                        <h5>Sarah Jenkins</h5>
+                    </div>
+                </div>
+                <div class="review-card">
+                    <div class="stars">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="review-text">"The Buy 1 Get 1 weekend deal is amazing. Paired with a warm cinnamon roll, it’s my absolute favorite weekend ritual."</p>
+                    <div class="customer">
+                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&q=80" alt="Customer David">
+                        <h5>David Miller</h5>
+                    </div>
+                </div>
+                <div class="review-card">
+                    <div class="stars">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="review-text">"Smash Coffee has such an inviting atmosphere. Fast Wi-Fi, friendly baristas, and truly premium espresso. 10/10 recommend."</p>
+                    <div class="customer">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" alt="Customer Elena">
+                        <h5>Elena Rodriguez</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location & Contact -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title">Visit Us</h2>
+            <div class="contact-info-wrapper" style="display: flex; gap: 4rem; flex-wrap: wrap;">
+                <div class="contact-info" style="flex: 1; min-width: 300px;">
+                    <div class="contact-item">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <div>
+                            <h4>Address</h4>
+                            <p><strong>JBTC Binangonan Badminton and Pickleball Courts</strong><br>Kambingan Street, Brgy. Pag-asa, Binangonan, Rizal, Philippines</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fa-regular fa-clock"></i>
+                        <div>
+                            <h4>Hours</h4>
+                            <p>Open Daily<br>1:00 PM to 12:00 Midnight</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fa-solid fa-phone"></i>
+                        <div>
+                            <h4>Phone</h4>
+                            <p><a href="tel:+639395048276" style="color: inherit;">0939 504 8276</a><br><span style="color: #666; font-size: 0.9rem;">Contact Person: Ryan Dwight Panoncillo</span></p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fa-regular fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <p><a href="mailto:ryanpanoncillo2002@gmail.com" style="color: var(--caramel); text-decoration: underline;">ryanpanoncillo2002@gmail.com</a></p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Google Maps Embed -->
+                <div class="map-container" style="flex: 1; min-width: 300px;">
+                    <iframe src="https://maps.google.com/maps?q=JBTC%20Binangonan%20Badminton%20and%20Pickleball%20Courts&t=&z=16&ie=UTF8&iwloc=&output=embed" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="#" class="footer-logo">Smash Coffee.</a>
+                    <p style="color: #aaa; margin-bottom: 1rem;">Fuel Your Game. Sip the Difference.</p>
+                    <div class="social-icons">
+                        <a target="_blank" href="https://www.facebook.com/nayr.ollicnonap" rel="noopener noreferrer"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a target="_blank" href="https://instagram.com/r_dwighty" rel="noopener noreferrer"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#menu">Our Menu</a></li>
+                        <li><a href="#features">Highlights</a></li>
+                        <li><a href="#gallery">Gallery</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col newsletter">
+                    <h4>Subscribe</h4>
+                    <p style="color: #aaa; margin-bottom: 1rem; font-size: 0.9rem;">Join our newsletter for exclusive offers and updates.</p>
+                    <form onsubmit="event.preventDefault();">
+                        <input type="email" placeholder="Email Address" required>
+                        <button type="submit" class="btn btn-primary" style="padding: 0.8rem 1.5rem;">Join</button>
+                    </form>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2026 Smash Coffee • Fuel Your Game. Sip the Difference.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Action Buttons -->
+    <div class="float">
+        <a href="tel:+639395048276"><i class="fa fa-phone"></i></a>
+        <a target="_blank" href="https://www.facebook.com/nayr.ollicnonap"><i class="fab fa-facebook-f"></i></a>
+        <a target="_blank" href="https://instagram.com/r_dwighty"><i class="fab fa-instagram"></i></a>
+        <a target="_blank" href="https://maps.google.com/?q=JBTC+Binangonan+Badminton+and+Pickleball+Courts"><i class="fa fa-location-dot"></i></a>
+    </div>
+
+</body>
+</html>
